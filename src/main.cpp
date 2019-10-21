@@ -1,8 +1,11 @@
-#include <stdio.h>
+#include <cstdio>
 #include <iostream>
 
 #include "../includes/Input.h"
 
+
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wmissing-noreturn"
 
 int main(int argc, char** argv) {
     printf("Welcome! You can exit by pressing Ctrl+C at any time...\n");
@@ -13,3 +16,5 @@ int main(int argc, char** argv) {
     }
     return 0;
 }
+
+#pragma clang diagnostic pop
