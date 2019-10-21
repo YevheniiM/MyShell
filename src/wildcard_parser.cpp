@@ -2,7 +2,7 @@
 // Created by yevhenii on 21.10.19.
 //
 
-#include "wildcard_parser.h"
+#include "../includes/wildcard_parser.h"
 
 #include <iostream>
 #include <vector>
