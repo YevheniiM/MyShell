@@ -8,8 +8,9 @@
 #include <string>
 #include <vector>
 
-std::string convert_pattern(const std::string& pattern);
-std::vector<std::string> get_matches(const std::vector<std::string>& files, const std::string& pattern);
+std::string convert_pattern(const std::string &pattern);
+
+std::vector<std::string> get_matches(const std::vector<std::string> &files, const std::string &pattern);
 
 
 #endif //MYSHELL_WILDCARD_PARSER_H

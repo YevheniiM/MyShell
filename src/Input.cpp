@@ -8,8 +8,8 @@ Input::Input() {
     currentPath = getcwd(cCurrentPath, sizeof(cCurrentPath));
 }
 
-std::string & Input::get() {
-    buf = readline((currentPath + " & ").c_str());
+std::string &Input::get() {
+    buf = readline((currentPath + "& ").c_str());
     if (strlen(buf) > 0) {
         add_history(buf);
     }

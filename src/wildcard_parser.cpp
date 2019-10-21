@@ -11,16 +11,16 @@
 using std::vector;
 
 
-std::string convert_pattern(const std::string& pattern){
+std::string convert_pattern(const std::string &pattern) {
     std::string reg_pattern;
-    for(auto s: pattern){
-        if(s == '*')
+    for (auto s: pattern) {
+        if (s == '*')
             reg_pattern += ".*";
         else if (s == '.')
             reg_pattern += "\\.";
         else if (s == '?')
             reg_pattern += '.';
-        else{
+        else {
             reg_pattern += s;
         }
     }
@@ -28,12 +28,12 @@ std::string convert_pattern(const std::string& pattern){
 }
 
 
-vector<std::string> get_matches(const vector<std::string>& files, const std::string& pattern){
+vector<std::string> get_matches(const vector<std::string> &files, const std::string &pattern) {
     vector<std::string> final{};
     std::regex rp(convert_pattern(pattern));
 
-    for(const auto& f: files){
-        if (std::regex_match(f, rp)){
+    for (const auto &f: files) {
+        if (std::regex_match(f, rp)) {
             final.push_back(f);
         }
     }
