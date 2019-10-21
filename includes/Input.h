@@ -8,16 +8,17 @@
 #include <readline/history.h>
 #include <readline/readline.h>
 #include <string>
+#include <vector>
 
 class Input {
 private:
     std::string currentPath;
-    char *buf{};
-    std::string lastCommand;
+    char *buf;
+    char cCurrentPath[FILENAME_MAX];
+    char* getRaw();
 public:
     Input();
-
-    std::string &get();
+    std::vector<std::string> getCommand();
 };
 
 #endif //MYSHELL_INPUT_H

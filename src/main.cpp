@@ -1,5 +1,6 @@
 #include <cstdio>
 #include <iostream>
+#include <unistd.h>
 
 #include "../includes/Input.h"
 #include "../includes/wildcard_parser.h"
@@ -12,7 +13,13 @@ int main(int argc, char **argv) {
     printf("Welcome! You can exit by pressing Ctrl+C at any time...\n");
     Input inp;
     while (true) {
-        std::cout << inp.get() << "|" << std::endl;
+        auto res = inp.getCommand();
+
+        for (auto i : res) {
+            std::cout << "[*] " << i << std::endl;
+        }
+//        std::cout << inp.getCommand() << "|" << std::endl;
+//        chdir("../../");
     }
     return 0;
 }
