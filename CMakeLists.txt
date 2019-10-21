@@ -5,5 +5,5 @@ set(CMAKE_CXX_STANDARD 14)
 
 
 find_library(Readline_LIBRARY NAMES readline)
-add_executable(myshell main.cpp Input.cpp Input.h)
+add_executable(myshell src/main.cpp src/Input.cpp includes/Input.h)
 target_link_libraries(myshell readline)
