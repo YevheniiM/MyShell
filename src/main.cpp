@@ -4,6 +4,7 @@
 
 #include "../includes/Input.h"
 #include "../includes/wildcard_parser.h"
+#include "../includes/helpers.h"
 
 
 #pragma clang diagnostic push
@@ -15,7 +16,7 @@ int main(int argc, char **argv) {
     while (true) {
         auto res = inp.getCommand();
 
-        for (auto i : res) {
+        for (const auto& i : res) {
             std::cout << "[*] " << i << std::endl;
         }
 //        std::cout << inp.getCommand() << "|" << std::endl;

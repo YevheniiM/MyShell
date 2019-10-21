@@ -13,12 +13,13 @@
 class Input {
 private:
     std::string currentPath;
-    char *buf;
-    char cCurrentPath[FILENAME_MAX];
+    char *buf{};
+    char cCurrentPath[FILENAME_MAX]{};
     char* getRaw();
 public:
     Input();
     std::vector<std::string> getCommand();
+    std::vector<std::string> applyWildcards(const std::string& wildcard);
 };
 
 #endif //MYSHELL_INPUT_H

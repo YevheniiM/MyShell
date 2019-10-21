@@ -1,5 +1,7 @@
 #include <functional>
 #include "../includes/Input.h"
+#include "../includes/wildcard_parser.h"
+#include "../includes/helpers.h"
 #include <unistd.h>
 #include <iostream>
 
@@ -28,8 +30,7 @@ std::vector<std::string> Input::getCommand() {
                 currentString += c;
             } else if (status == SKIP_SEQUENCE) {
                 currentString += c;
-            }
-            else {
+            } else {
                 if (!currentString.empty()) {
                     res.push_back(currentString);
                     currentString.clear();
@@ -57,26 +58,30 @@ std::vector<std::string> Input::getCommand() {
                         }
                         break;
                     default:
-                        currentString+=c;
+                        currentString += c;
                         break;
                 }
             }
         }
     }
-    if (status==OPEN_QUOTES || status == SKIP_SEQUENCE) {
+    if (status == OPEN_QUOTES || status == SKIP_SEQUENCE) {
         throw;
-    } else if (!currentString.empty()){
+    } else if (!currentString.empty()) {
         res.push_back(currentString);
     }
     free(buf);
     return res;
 }
 
-char * Input::getRaw() {
+char *Input::getRaw() {
     buf = readline((currentPath + " & ").c_str());
     if (strlen(buf) > 0) {
         add_history(buf);
     }
     return buf;
+}
+
+std::vector<std::string> Input::applyWildcards(const std::string& wildcard) {
+    return get_matches(list_current_dir(currentPath), wildcard);
 }
 
