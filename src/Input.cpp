@@ -8,7 +8,6 @@
 #include "wildcard_parser.h"
 
 
-
 enum Status {
     OPEN_QUOTES,
     SKIP_SEQUENCE,
@@ -88,6 +87,8 @@ char *Input::getRaw() {
     }
     return buf;
 }
+
+
 
 std::vector<std::string> Input::applyWildcards(const std::string &wildcard) {
     return get_matches(list_current_dir(currentPath), wildcard);
