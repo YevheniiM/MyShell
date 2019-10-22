@@ -9,14 +9,16 @@
 #include <readline/readline.h>
 #include <string>
 #include <vector>
+#include "VariablesManager.h"
 
 class Input {
 private:
+    VariablesManager & varManager;
     std::string currentPath;
     char *buf;
     char cCurrentPath[FILENAME_MAX];
 public:
-    Input();
+    Input(VariablesManager & varManager);
     std::vector<std::string> preprocessCommand();
     std::vector<std::string> getCommand();
     char* getRaw();

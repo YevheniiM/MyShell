@@ -1,12 +1,12 @@
 #include <functional>
 #include <unistd.h>
-#include <iostream>
 #include <my_functions.h>
+#include <regex>
 
 #include "Input.h"
 #include "helpers.h"
 #include "wildcard_parser.h"
-
+#include "VariablesManager.h"
 
 enum Status {
     OPEN_QUOTES,
@@ -14,13 +14,43 @@ enum Status {
     NORMAL
 };
 
-Input::Input() {
-
+Input::Input(VariablesManager & vm): varManager(vm) {
     currentPath = getcwd(cCurrentPath, sizeof(cCurrentPath));
 }
 
 std::vector<std::string> Input::preprocessCommand() {
-// TODO: replace variables, replace wildcards
+    auto resCommand = this->getCommand();
+    std::regex varSubstitution{R"((\$[a-zA-Z]+))"};
+    std::vector <std::string> res;
+
+    for (auto & elem: resCommand) {
+        std::smatch matches;
+        std::string newEntry;
+        if (elem.at(0) != '\'' && elem.at(elem.size()-1) != '\'') {
+                std::string newStr;
+                while (std::regex_search(elem, matches, varSubstitution, std::regex_constants::match_any)) {
+                    newStr.append(elem.begin(), elem.begin()+matches.position(0));
+                    newStr.append(varManager.getLocalVariable(matches[0].str().substr(1)));
+                    elem = matches.suffix().str();
+                }
+                newStr.append(elem.begin(), elem.end());
+                newEntry = newStr;
+        } else {
+            newEntry = elem;
+        }
+
+// TODO: finalize wildcard substitution
+        if (is_wildcard(newEntry)) {
+            auto wildcardedInput = this->applyWildcards(newEntry);
+            res.insert(res.end(), wildcardedInput.begin(), wildcardedInput.end());
+        } else {
+            res.push_back(newEntry);
+        }
+    }
+
+
+    return res;
+
 }
 
 std::vector<std::string> Input::getCommand() {
@@ -53,6 +83,7 @@ std::vector<std::string> Input::getCommand() {
                         status = SKIP_SEQUENCE;
                         break;
                     case '"':
+                    case '\'':
                         if (status == OPEN_QUOTES) {
                             currentString += c;
                             res.push_back(currentString);
@@ -71,10 +102,11 @@ std::vector<std::string> Input::getCommand() {
         }
     }
     if (status == OPEN_QUOTES || status == SKIP_SEQUENCE) {
-        throw;
+        std::invalid_argument("The syntax problem in row.");
     } else if (!currentString.empty()) {
         res.push_back(currentString);
     }
+
     free(buf);
     return res;
 }

@@ -6,14 +6,19 @@
 #define MYSHELL_VARIABLESMANAGER_H
 
 #include <string>
+#include <map>
 
 class VariablesManager {
 private:
-
+    std::map<std::string, std::string> localVariables;
+    std::map<std::string, std::string> globalVariables;
 public:
     VariablesManager() = default;
-    void setVariable(std::string name, std::string data);
-    std::string getVariable(std::string name);
+    void setGlobalVariable(std::string name, std::string data);
+    std::string getGlobalVariable(std::string name);
+
+    void setLocalVariable(std::string name, std::string data);
+    std::string getLocalVariable(std::string name);
 
 };
 

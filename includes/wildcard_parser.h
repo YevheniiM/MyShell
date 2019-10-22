@@ -12,5 +12,5 @@ std::string convert_pattern(const std::string &pattern);
 
 std::vector<std::string> get_matches(const std::vector<std::string> &files, const std::string &pattern);
 
-
+bool is_wildcard(const std::string &command);
 #endif //MYSHELL_WILDCARD_PARSER_H
