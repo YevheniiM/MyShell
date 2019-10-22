@@ -1,14 +1,10 @@
 #include <cstdio>
 #include <iostream>
-#include <unistd.h>
-#include <algorithm>
 #include <regex>
 
 #include "Input.h"
 #include "merrno.h"
 #include "my_programs.h"
-#include "my_functions.h"
-#include "wildcard_parser.h"
 #include "VariablesManager.h"
 
 #pragma clang diagnostic push
