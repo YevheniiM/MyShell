@@ -23,6 +23,10 @@ int main(int argc, char **argv) {
     while (true) {
         auto res = inp.getCommand();
 
+        for (auto i : res) {
+            std::cout << "[*] " << i << std::endl;
+        }
+
         if (std::find(my_optins.begin(), my_optins.end(), res[0]) != my_optins.end()){
             run_my_options(res);
         }else{

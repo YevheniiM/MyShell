@@ -15,13 +15,11 @@ private:
     std::string currentPath;
     char *buf;
     char cCurrentPath[FILENAME_MAX];
-
-    char *getRaw();
-
 public:
     Input();
-
+    std::vector<std::string> preprocessCommand();
     std::vector<std::string> getCommand();
+    char* getRaw();
 
     std::vector<std::string> applyWildcards(const std::string &wildcard);
 };

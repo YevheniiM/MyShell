@@ -7,17 +7,22 @@
 #include "helpers.h"
 #include "wildcard_parser.h"
 
+
+
+enum Status {
+    OPEN_QUOTES,
+    SKIP_SEQUENCE,
+    NORMAL
+};
+
 Input::Input() {
 
     currentPath = getcwd(cCurrentPath, sizeof(cCurrentPath));
 }
 
-enum Status {
-    BEFORE_LINE,
-    OPEN_QUOTES,
-    SKIP_SEQUENCE,
-    NORMAL
-};
+std::vector<std::string> Input::preprocessCommand() {
+// TODO: replace variables, replace wildcards
+}
 
 std::vector<std::string> Input::getCommand() {
     auto data = getRaw();
