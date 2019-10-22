@@ -1,9 +1,11 @@
 #include <functional>
-#include "../includes/Input.h"
-#include "../includes/wildcard_parser.h"
-#include "../includes/helpers.h"
 #include <unistd.h>
 #include <iostream>
+#include <my_functions.h>
+
+#include "Input.h"
+#include "helpers.h"
+#include "wildcard_parser.h"
 
 Input::Input() {
 
@@ -74,14 +76,14 @@ std::vector<std::string> Input::getCommand() {
 }
 
 char *Input::getRaw() {
-    buf = readline((currentPath + " & ").c_str());
+    mpwd();
+    buf = readline((" & "));
     if (strlen(buf) > 0) {
         add_history(buf);
     }
     return buf;
 }
 
-std::vector<std::string> Input::applyWildcards(const std::string& wildcard) {
+std::vector<std::string> Input::applyWildcards(const std::string &wildcard) {
     return get_matches(list_current_dir(currentPath), wildcard);
 }
-

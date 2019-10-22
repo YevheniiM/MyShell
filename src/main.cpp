@@ -1,26 +1,37 @@
 #include <cstdio>
 #include <iostream>
 #include <unistd.h>
+#include <algorithm>
 
-#include "../includes/Input.h"
-#include "../includes/wildcard_parser.h"
-#include "../includes/helpers.h"
-
+#include "Input.h"
+#include "merrno.h"
+#include "my_programs.h"
+#include "my_functions.h"
+#include "wildcard_parser.h"
 
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wmissing-noreturn"
 
+merrno my_errno;
+
 int main(int argc, char **argv) {
     printf("Welcome! You can exit by pressing Ctrl+C at any time...\n");
     Input inp;
+    std::vector<std::string> my_optins{"merrno", "mpwd", "mcd", "mexit", "mecho", "mexport"};
+    std::vector<std::string> my_programs{"mycat"};
+
     while (true) {
         auto res = inp.getCommand();
 
-        for (const auto& i : res) {
-            std::cout << "[*] " << i << std::endl;
+        if (std::find(my_optins.begin(), my_optins.end(), res[0]) != my_optins.end()){
+            run_my_options(res);
+        }else{
+            run_my_programs(res);
         }
-//        std::cout << inp.getCommand() << "|" << std::endl;
-//        chdir("../../");
+
+        if(my_errno.get_code() != 0){
+            my_errno.get_description();
+        }
     }
     return 0;
 }

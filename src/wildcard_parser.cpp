@@ -2,11 +2,11 @@
 // Created by yevhenii on 21.10.19.
 //
 
-#include "../includes/wildcard_parser.h"
-
-#include <iostream>
-#include <vector>
 #include <regex>
+#include <vector>
+#include <iostream>
+
+#include "wildcard_parser.h"
 
 using std::vector;
 
