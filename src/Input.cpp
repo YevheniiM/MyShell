@@ -50,8 +50,8 @@ std::vector<std::string> Input::preprocessCommand() {
                 res.push_back(elem);
             }
         } catch (std::invalid_argument& ex){
-            // TODO: raise error?
             std::cout << ex.what() << std::endl;
+            return std::vector<std::string>{};
         }
     }
 
