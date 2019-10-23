@@ -1,13 +1,13 @@
-#include <functional>
-#include <unistd.h>
-#include <my_functions.h>
+// This is a personal academic project. Dear PVS-Studio, please check it.
+// PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
+
 #include <regex>
-#include <iostream>
+#include <unistd.h>
 
 #include "Input.h"
 #include "helpers.h"
+#include "my_functions.h"
 #include "wildcard_parser.h"
-#include "VariablesManager.h"
 
 enum Status {
     OPEN_QUOTES,
@@ -39,25 +39,12 @@ std::vector<std::string> Input::preprocessCommand() {
         } else {
             newEntry = elem;
         }
-
-<<<<<<< HEAD
-//        if (is_wildcard(newEntry) == 0) {
-//            std::cout << newEntry << " -> wild\n";
-//            auto wildcardedInput = this->applyWildcards(newEntry);
-//            res.insert(res.end(), wildcardedInput.begin(), wildcardedInput.end());
-//        } else {
-//            res.push_back(newEntry);
-//        }
-        res.push_back(newEntry);
-=======
-//     TODO: finalize wildcard substitution
-            if (is_wildcard(elem) == 0) {
-                auto wildcardedInput = applyWildcards(elem);
-                res.insert(res.end(), wildcardedInput.begin(), wildcardedInput.end());
-            } else {
-                res.push_back(newEntry);
-            }
->>>>>>> 596779dcb0d883c2a3ebec3e942f05b081c9c60a
+        if (is_wildcard(elem) == 0) {
+            auto wildcardedInput = applyWildcards(elem);
+            res.insert(res.end(), wildcardedInput.begin(), wildcardedInput.end());
+        } else {
+            res.push_back(newEntry);
+        }
     }
 
 

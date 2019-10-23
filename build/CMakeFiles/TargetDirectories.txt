@@ -1,0 +1,4 @@
+/mnt/d/Projects/Third_year/OS/MyShell/build/CMakeFiles/rebuild_cache.dir
+/mnt/d/Projects/Third_year/OS/MyShell/build/CMakeFiles/mycat.dir
+/mnt/d/Projects/Third_year/OS/MyShell/build/CMakeFiles/edit_cache.dir
+/mnt/d/Projects/Third_year/OS/MyShell/build/CMakeFiles/myshell.dir

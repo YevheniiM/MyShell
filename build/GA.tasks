@@ -1,0 +1,2 @@
+www.viva64.com/en/w	1	err	Help: The documentation for all analyzer warnings is available here: https://www.viva64.com/en/w/.
+/mnt/d/Projects/Third_year/OS/MyShell/src/Input.cpp	18	err	V730 Not all members of a class are initialized inside the constructor. Consider inspecting: buf.

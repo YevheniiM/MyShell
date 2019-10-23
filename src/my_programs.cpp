@@ -1,6 +1,5 @@
-//
-// Created by vorumbo on 21.10.19.
-//
+// This is a personal academic project. Dear PVS-Studio, please check it.
+// PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 #include <wait.h>
 #include <iostream>
@@ -9,7 +8,6 @@
 #include "my_programs.h"
 
 void run_my_programs(std::vector<std::string> &args, const VariablesManager &variablesManager) {
-    pid_t parent = getpid();
     pid_t pid = fork();
 
     if (pid == -1) {

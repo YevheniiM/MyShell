@@ -1,14 +1,10 @@
-//
-// Created by yevhenii on 21.10.19.
-//
+// This is a personal academic project. Dear PVS-Studio, please check it.
+// PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
-#include "helpers.h"
-#include <string>
 #include <iostream>
-#include <experimental/filesystem>
-#include <dirent.h>
 
-namespace fs = std::experimental::filesystem;
+#include "dirent.h"
+#include "helpers.h"
 
 
 std::vector<std::string> list_current_dir(const std::string &path) {

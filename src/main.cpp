@@ -1,5 +1,7 @@
+// This is a personal academic project. Dear PVS-Studio, please check it.
+// PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
+
 #include <regex>
-#include <cstdio>
 #include <iostream>
 
 #include "Input.h"
@@ -19,7 +21,7 @@ int main(int argc, char **argv) {
     Input inp{variablesManager};
 
     std::stringstream mstringstream;
-    mstringstream << "/bin/:/bin/local/" << get_current_directory();
+    mstringstream << "/bin/:/bin/local/:" << get_current_directory();
     variablesManager.setGlobalVariable("PATH", mstringstream.str());
 
     std::vector<std::string> my_optins{"merrno", "mpwd", "mcd", "mexit", "mecho", "mexport"};
@@ -43,6 +45,9 @@ int main(int argc, char **argv) {
                 run_my_options(res, variablesManager);
             } else {
                 run_my_programs(res, variablesManager);
+                for(auto & r: res){
+                    std::cout << r << std::endl;
+                }
             }
         }
 

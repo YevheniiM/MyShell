@@ -1,13 +1,12 @@
-//
-// Created by yevhenii on 21.10.19.
-//
+// This is a personal academic project. Dear PVS-Studio, please check it.
+// PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 #include <regex>
 #include <vector>
 #include <iostream>
+#include <algorithm>
 
 #include "wildcard_parser.h"
-#include <algorithm>
 
 using std::vector;
 
@@ -40,7 +39,6 @@ vector<std::string> get_matches(const vector<std::string> &files, const std::str
     std::string copy{pattern};
     char to_remove[] = {'/'};
     remove_chars_from_string(copy, to_remove);
-//    std::cout << copy << std::endl;
 
     vector<std::string> final{};
     std::regex rp(convert_pattern(copy));
@@ -60,7 +58,7 @@ vector<std::string> get_matches(const vector<std::string> &files, const std::str
 std::string from_wildcard(const std::string &wildcard, bool path) {
     auto ind = wildcard.find_last_of('/');
     if (ind == std::string::npos) {
-        if(path)
+        if (path)
             return "";
         return wildcard;
     }
