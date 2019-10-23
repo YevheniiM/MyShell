@@ -2,6 +2,7 @@
 #include <unistd.h>
 #include <my_functions.h>
 #include <regex>
+#include <iostream>
 
 #include "Input.h"
 #include "helpers.h"
@@ -40,7 +41,8 @@ std::vector<std::string> Input::preprocessCommand() {
         }
 
 // TODO: finalize wildcard substitution
-        if (is_wildcard(newEntry)) {
+        if (is_wildcard(newEntry) == 0) {
+            std::cout << newEntry << " -> wild\n";
             auto wildcardedInput = this->applyWildcards(newEntry);
             res.insert(res.end(), wildcardedInput.begin(), wildcardedInput.end());
         } else {
@@ -102,7 +104,7 @@ std::vector<std::string> Input::getCommand() {
         }
     }
     if (status == OPEN_QUOTES || status == SKIP_SEQUENCE) {
-        std::invalid_argument("The syntax problem in row.");
+        throw std::invalid_argument("The syntax problem in row.");
     } else if (!currentString.empty()) {
         res.push_back(currentString);
     }

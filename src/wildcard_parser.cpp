@@ -42,18 +42,33 @@ vector<std::string> get_matches(const vector<std::string> &files, const std::str
 }
 
 
-bool is_wildcard(const std::string &command) {
-    size_t stars = std::count(command.begin(), command.end(), '*');
-    size_t open_brackets = std::count(command.begin(), command.end(), '[');
-    size_t close_brackets = std::count(command.begin(), command.end(), ']');
-    size_t question_mark = std::count(command.begin(), command.end(), '?');
+int find_last_index(const std::string& str, char x)
+{
+    for (size_t i = str.length() - 1; i >= 0; i--)
+        if (str[i] == x)
+            return i;
 
-    if (open_brackets == close_brackets && open_brackets != 0) return true;
-    if (stars) return true;
-    if (question_mark) return true;
+    return -1;
+}
+
+
+int is_wildcard(const std::string &command) {
+    auto ind = find_last_index(command, '/');
+    auto last = command;
+    if (ind != -1)
+        last = command.substr(ind);
+    std::cout << "--- " << last << '\n';
+    size_t stars = std::count(last.begin(), last.end(), '*');
+    size_t open_brackets = std::count(last.begin(), last.end(), '[');
+    size_t close_brackets = std::count(last.begin(), last.end(), ']');
+    size_t question_mark = std::count(last.begin(), last.end(), '?');
+
+    if (open_brackets == close_brackets && open_brackets != 0) return 0;
+    if (stars) return 0;
+    if (question_mark) return 0;
 
     if (open_brackets != close_brackets)
         throw std::invalid_argument("The syntax problem in a wildcard was detected.");
 
-    return false;
+    return -1;
 }
