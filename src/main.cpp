@@ -45,9 +45,6 @@ int main(int argc, char **argv) {
                 run_my_options(res, variablesManager);
             } else {
                 run_my_programs(res, variablesManager);
-                for(auto & r: res){
-                    std::cout << r << std::endl;
-                }
             }
         }
 

@@ -15,10 +15,10 @@ class Input {
 private:
     VariablesManager &varManager;
     std::string currentPath;
-    char *buf;
-    char cCurrentPath[FILENAME_MAX];
+    char *buf{};
+    char cCurrentPath[FILENAME_MAX]{};
 public:
-    Input(VariablesManager &varManager);
+    explicit Input(VariablesManager &varManager);
 
     std::vector<std::string> preprocessCommand();
 

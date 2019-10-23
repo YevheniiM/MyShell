@@ -66,7 +66,6 @@ std::string from_wildcard(const std::string &wildcard, bool path) {
     std::string res;
     if (path) {
         res = wildcard.substr(0, ind + 1);
-        std::cout << res << " ---- " << wildcard << std::endl;
         if (res[0] != '/')
             res = res.insert(0, "/");
         if (res[res.length() - 1] != '/')

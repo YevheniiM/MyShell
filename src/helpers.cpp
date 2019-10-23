@@ -13,7 +13,7 @@ std::vector<std::string> list_current_dir(const std::string &path) {
     std::vector<std::string> files{};
     if ((dir = opendir(path.c_str())) != nullptr) {
         while ((ent = readdir(dir)) != nullptr) {
-            files.emplace_back(ent->d_name);
+            files.emplace_back(path + ent->d_name);
         }
         closedir(dir);
     } else {
