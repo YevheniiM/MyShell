@@ -14,6 +14,7 @@ private:
     std::map<std::string, std::string> globalVariables;
 public:
     VariablesManager() = default;
+<<<<<<< HEAD
 
     void setGlobalVariable(const std::string &name, std::string data);
 
@@ -26,6 +27,13 @@ public:
     std::string getLocalVariable(const std::string &name);
 
     std::string getAllLocalVariable() const;
+=======
+    void setGlobalVariable(const std::string& name, std::string data);
+    std::string getGlobalVariable(const std::string& name);
+
+    void setLocalVariable(const std::string& name, std::string data);
+    std::string getLocalVariable(const std::string& name);
+>>>>>>> 206e64d2505ff996b8ccb4e2cd59fbc43533b29e
 
 };
 
