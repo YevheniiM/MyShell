@@ -40,6 +40,7 @@ std::vector<std::string> Input::preprocessCommand() {
             newEntry = elem;
         }
 
+<<<<<<< HEAD
 //        if (is_wildcard(newEntry) == 0) {
 //            std::cout << newEntry << " -> wild\n";
 //            auto wildcardedInput = this->applyWildcards(newEntry);
@@ -48,6 +49,15 @@ std::vector<std::string> Input::preprocessCommand() {
 //            res.push_back(newEntry);
 //        }
         res.push_back(newEntry);
+=======
+//     TODO: finalize wildcard substitution
+            if (is_wildcard(elem) == 0) {
+                auto wildcardedInput = applyWildcards(elem);
+                res.insert(res.end(), wildcardedInput.begin(), wildcardedInput.end());
+            } else {
+                res.push_back(newEntry);
+            }
+>>>>>>> 596779dcb0d883c2a3ebec3e942f05b081c9c60a
     }
 
 
@@ -124,5 +134,8 @@ char *Input::getRaw() {
 
 
 std::vector<std::string> Input::applyWildcards(const std::string &wildcard) {
-    return get_matches(list_current_dir(currentPath), wildcard);
+    auto path = from_wildcard(wildcard, true);
+    auto card = from_wildcard(wildcard, false);
+
+    return get_matches(list_current_dir(currentPath + path), card);
 }

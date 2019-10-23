@@ -23,5 +23,6 @@ std::vector<std::string> list_current_dir(const std::string &path) {
     } else {
         throw std::runtime_error("Can not access the directory");
     }
+
     return files;
 }
