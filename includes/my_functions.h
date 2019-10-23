@@ -20,6 +20,8 @@ void mexit_help();
 
 void mexit(int code = 0);
 
+std::string get_current_directory();
+
 void mcd(const std::string &new_path);
 
 void mecho(const std::vector<std::string> &args);

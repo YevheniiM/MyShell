@@ -42,8 +42,7 @@ vector<std::string> get_matches(const vector<std::string> &files, const std::str
 }
 
 
-int find_last_index(const std::string& str, char x)
-{
+int find_last_index(const std::string &str, char x) {
     for (size_t i = str.length() - 1; i >= 0; i--)
         if (str[i] == x)
             return i;
@@ -53,10 +52,13 @@ int find_last_index(const std::string& str, char x)
 
 
 int is_wildcard(const std::string &command) {
+    if (command.empty())
+        return -1;
     auto ind = find_last_index(command, '/');
     auto last = command;
-    if (ind != -1)
+    if (ind != -1) {
         last = command.substr(ind);
+    }
     std::cout << "--- " << last << '\n';
     size_t stars = std::count(last.begin(), last.end(), '*');
     size_t open_brackets = std::count(last.begin(), last.end(), '[');

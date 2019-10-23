@@ -2,12 +2,13 @@
 // Created by vorumbo on 21.10.19.
 //
 
-#include <zconf.h>
-#include <iostream>
 #include <wait.h>
+#include <iostream>
+#include <unistd.h>
+
 #include "my_programs.h"
 
-void run_my_programs(std::vector<std::string> &args) {
+void run_my_programs(std::vector<std::string> &args, const VariablesManager &variablesManager) {
     pid_t parent = getpid();
     pid_t pid = fork();
 
@@ -30,6 +31,8 @@ void run_my_programs(std::vector<std::string> &args) {
         std::string path_var;
         if (path_ptr != nullptr)
             path_var = path_ptr;
+        path_var += ":";
+        path_var.insert(path_var.size(), variablesManager.getAllGlobalVariable());
         path_var += ":.";
         setenv("PATH", path_var.c_str(), 1);
         //! Environment is ready

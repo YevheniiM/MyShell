@@ -8,6 +8,8 @@
 #include <vector>
 #include <string>
 
-void run_my_programs(std::vector<std::string> &args);
+#include "VariablesManager.h"
+
+void run_my_programs(std::vector<std::string> &args, const VariablesManager &variablesManager);
 
 #endif //MYSHELL_MY_PROGRAMS_H

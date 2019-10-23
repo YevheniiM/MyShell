@@ -1,8 +1,8 @@
-cmake_minimum_required(VERSION 3.15)
+cmake_minimum_required(VERSION 3.10)
 project(myshell)
 
 set(CMAKE_CXX_STANDARD 17)
-
+set(EXECUTABLE_OUTPUT_PATH ${CMAKE_CURRENT_SOURCE_DIR}/bin)
 
 find_library(Readline_LIBRARY NAMES readline)
 add_executable(mycat mycat/mycat.cpp mycat/low_level.cpp mycat/low_level.h mycat/high_level.cpp mycat/high_level.h)

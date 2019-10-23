@@ -12,12 +12,11 @@ extern merrno my_errno;
 void run_my_options(std::vector<std::string> &args) {
     bool help = false;
     for (auto &opt: args) {
-        if (opt == "-h" || opt == "-help") {
+        if (opt == "-h" || opt == "-help" || opt == "--help") {
             help = true;
         }
     }
 
-    // check valid args !!!!!!!!!!!!!!!!!!!!!!!
     if (args[0] == "merrno") {
         if (help) {
             merrno::help();
@@ -40,8 +39,8 @@ void run_my_options(std::vector<std::string> &args) {
         if (help) {
             mexit_help();
         } else {
-            if(args.size() == 2) mexit(stoi(args[1]));
-                else mexit();
+            if (args.size() == 2) mexit(stoi(args[1]));
+            else mexit();
         }
     } else if (args[0] == "mecho") {
         if (help) {
@@ -51,9 +50,9 @@ void run_my_options(std::vector<std::string> &args) {
             mecho(args);
         }
     } else {
-        // Markian part :+)
+
     }
-    if(help || (args[0] != "mcd" && args[0] != "mexit"))
+    if (help || (args[0] != "mcd" && args[0] != "mexit"))
         std::cout << std::endl;
 }
 
@@ -68,14 +67,9 @@ void mpwd_help() {
 }
 
 void mpwd() {
-    char current_dir[4096];
-
-    char *res = getcwd(current_dir, 4096);
-
-    if (res == nullptr) my_errno.set_code(-2);
-    else {
-        std::cout << current_dir;
-        my_errno.set_code(0);
+    std::string directory = get_current_directory();
+    if (my_errno.get_code() == 0) {
+        std::cout << directory;
     }
 }
 
@@ -102,17 +96,31 @@ void mexit_help() {
     my_errno.set_code(0);
 }
 
-void mexit(int status){
+void mexit(int status) {
     my_errno.set_code(0);
     _exit(status);
 }
 
-void mecho_help(){
+void mecho_help() {
     std::cout << "Prints the line of text.";
 }
 
-void mecho(const std::vector<std::string> &args){
-    for(auto &arg:args){
+void mecho(const std::vector<std::string> &args) {
+    for (auto &arg:args) {
         std::cout << arg << " ";
     }
+}
+
+std::string get_current_directory() {
+    char current_dir[4096];
+
+    char *res = getcwd(current_dir, 4096);
+
+    if (res == nullptr) my_errno.set_code(-2);
+    else {
+        std::cout << current_dir;
+        my_errno.set_code(0);
+    }
+
+    return std::string(current_dir);
 }

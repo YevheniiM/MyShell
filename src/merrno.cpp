@@ -22,7 +22,7 @@ void merrno::get_description() {
             std::cout << "Everything was done without errors." << std::endl;
             return;
         default:
-            std::cout << "Unknown error." << std::endl;
+            std::cout << "Unknown error with code " << code << std::endl;
 
     }
 }
