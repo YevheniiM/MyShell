@@ -9,7 +9,7 @@
 
 extern merrno my_errno;
 
-void run_my_options(std::vector<std::string> &args) {
+void run_my_options(std::vector<std::string> &args, VariablesManager &variablesManager) {
     bool help = false;
     for (auto &opt: args) {
         if (opt == "-h" || opt == "-help" || opt == "--help") {
@@ -39,8 +39,14 @@ void run_my_options(std::vector<std::string> &args) {
         if (help) {
             mexit_help();
         } else {
-            if (args.size() == 2) mexit(stoi(args[1]));
-            else mexit();
+            if (args.size() == 2) {
+                try {
+                    mexit(stoi(args[1]));
+                } catch (...) {
+                    std::cerr << "Bad code of exit" << std::endl;
+                    exit(-1);
+                }
+            } else mexit();
         }
     } else if (args[0] == "mecho") {
         if (help) {
@@ -50,7 +56,12 @@ void run_my_options(std::vector<std::string> &args) {
             mecho(args);
         }
     } else {
-
+        if (help) {
+            mexport_help();
+        } else {
+            args.erase(args.begin());
+            mexport(args, variablesManager);
+        }
     }
     if (help || (args[0] != "mcd" && args[0] != "mexit"))
         std::cout << std::endl;
@@ -63,7 +74,7 @@ void mpwd_help() {
                  "    Exit Status:\n"
                  "    Returns 0 unless an invalid option is given or the current directory\n"
                  "    cannot be read.";
-    my_errno.set_code(0);
+    my_errno.set_code(0, 0);
 }
 
 void mpwd() {
@@ -78,13 +89,13 @@ void mcd_help() {
                  "  Change the shell working directory.\n"
                  "      \n"
                  "      Change the current directory to DIR";
-    my_errno.set_code(0);
+    my_errno.set_code(0, 0);
 }
 
 void mcd(const std::string &new_path) {
     int ret = chdir(new_path.c_str());
-    if (ret == -1) my_errno.set_code(-1);
-    else my_errno.set_code(0);
+    if (ret == -1) my_errno.set_code(-1, errno);
+    else my_errno.set_code(0, 0);
 }
 
 void mexit_help() {
@@ -93,16 +104,17 @@ void mexit_help() {
                  "    \n"
                  "    Exits the shell with a status of N.  If N is omitted, the exit status\n"
                  "    is that of the last command executed.";
-    my_errno.set_code(0);
+    my_errno.set_code(0, 0);
 }
 
 void mexit(int status) {
-    my_errno.set_code(0);
+    my_errno.set_code(0, 0);
     _exit(status);
 }
 
 void mecho_help() {
     std::cout << "Prints the line of text.";
+    my_errno.set_code(0, 0);
 }
 
 void mecho(const std::vector<std::string> &args) {
@@ -111,16 +123,25 @@ void mecho(const std::vector<std::string> &args) {
     }
 }
 
+void mexport_help() {
+    std::cout << " Set export attribute for shell variables." << std::endl;
+}
+
+void mexport(const std::vector<std::string> &args, VariablesManager &variablesManager) {
+    for (auto &arg:args) {
+        auto delimiterPos = arg.find('=');
+        variablesManager.setLocalVariable(arg.substr(0, delimiterPos), arg.substr((delimiterPos + 1)));
+        variablesManager.setGlobalVariable(arg.substr(0, delimiterPos), arg.substr((delimiterPos + 1)));
+    }
+}
+
 std::string get_current_directory() {
     char current_dir[4096];
 
     char *res = getcwd(current_dir, 4096);
 
-    if (res == nullptr) my_errno.set_code(-2);
-    else {
-        std::cout << current_dir;
-        my_errno.set_code(0);
-    }
+    if (res == nullptr) my_errno.set_code(-2, errno);
+    else my_errno.set_code(0, 0);
 
     return std::string(current_dir);
 }

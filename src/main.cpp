@@ -19,6 +19,7 @@ int main(int argc, char **argv) {
     Input inp{variablesManager};
 
     std::stringstream mstringstream;
+    mstringstream << "/bin/:/bin/local/" << get_current_directory();
     variablesManager.setGlobalVariable("PATH", mstringstream.str());
 
     std::vector<std::string> my_optins{"merrno", "mpwd", "mcd", "mexit", "mecho", "mexport"};
@@ -39,7 +40,7 @@ int main(int argc, char **argv) {
             variablesManager.setLocalVariable(res[0].substr(0, delimiterPos), res[0].substr((delimiterPos + 1)));
         } else {
             if (std::find(my_optins.begin(), my_optins.end(), res[0]) != my_optins.end()) {
-                run_my_options(res);
+                run_my_options(res, variablesManager);
             } else {
                 run_my_programs(res, variablesManager);
             }

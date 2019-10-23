@@ -10,15 +10,15 @@
 
 class merrno {
 private:
-    int code;
+    int code, errno_code;
 public:
-    merrno() : code{0} {};
+    merrno() : code{0}, errno_code{0} {};
 
     static void help();
 
     int get_code();
 
-    void set_code(int new_code);
+    void set_code(int new_code, int new_errno_code);
 
     void get_description();
 };

@@ -40,7 +40,6 @@ std::vector<std::string> Input::preprocessCommand() {
             newEntry = elem;
         }
 
-// TODO: finalize wildcard substitution
 //        if (is_wildcard(newEntry) == 0) {
 //            std::cout << newEntry << " -> wild\n";
 //            auto wildcardedInput = this->applyWildcards(newEntry);

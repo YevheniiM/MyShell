@@ -26,6 +26,7 @@ public:
     std::string getLocalVariable(const std::string &name);
 
     std::string getAllLocalVariable() const;
+
 };
 
 #endif //MYSHELL_VARIABLESMANAGER_H
