@@ -45,17 +45,16 @@ std::vector<std::string> Input::preprocessCommand() {
             if (is_wildcard(elem) == 0) {
                 auto wildcardedInput = applyWildcards(elem);
                 res.insert(res.end(), wildcardedInput.begin(), wildcardedInput.end());
+                if (wildcardedInput.empty()) res.push_back(elem);
             } else {
-                res.push_back(newEntry);
+                res.push_back(elem);
             }
         } catch (std::invalid_argument& ex){
             std::cout << ex.what() << std::endl;
         }
     }
 
-
     return res;
-
 }
 
 std::vector<std::string> Input::getCommand() {

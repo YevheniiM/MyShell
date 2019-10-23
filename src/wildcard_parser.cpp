@@ -36,15 +36,16 @@ void remove_chars_from_string(std::string &str, char *charsToRemove) {
 
 
 vector<std::string> get_matches(const vector<std::string> &files, const std::string &pattern) {
-    std::string copy{pattern};
-    char to_remove[] = {'/'};
-    remove_chars_from_string(copy, to_remove);
-
     vector<std::string> final{};
-    std::regex rp(convert_pattern(copy));
+    std::regex rp(convert_pattern(pattern));
 
     for (const auto &f: files) {
-        if (std::regex_match(f, rp)) {
+        int ind = f.find_last_of('/');
+        std::string c;
+        if (ind != std::string::npos)
+            c = f.substr(ind + 1);
+
+        if (std::regex_match(c, rp)) {
             final.push_back(f);
         }
     }
