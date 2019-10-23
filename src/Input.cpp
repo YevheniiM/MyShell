@@ -117,8 +117,8 @@ std::vector<std::string> Input::getCommand() {
 }
 
 char *Input::getRaw() {
-    mpwd();
-    buf = readline((" & "));
+    currentPath = getcwd(cCurrentPath, sizeof(cCurrentPath));
+    buf = readline((currentPath + " & ").c_str());
     if (strlen(buf) > 0) {
         add_history(buf);
     }
