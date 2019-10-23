@@ -41,7 +41,7 @@ vector<std::string> get_matches(const vector<std::string> &files, const std::str
 
     for (const auto &f: files) {
         int ind = f.find_last_of('/');
-        std::string c;
+        std::string c = f;
         if (ind != std::string::npos)
             c = f.substr(ind + 1);
 

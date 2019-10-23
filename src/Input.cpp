@@ -50,6 +50,7 @@ std::vector<std::string> Input::preprocessCommand() {
                 res.push_back(elem);
             }
         } catch (std::invalid_argument& ex){
+            // TODO: raise error?
             std::cout << ex.what() << std::endl;
         }
     }
@@ -128,7 +129,7 @@ char *Input::getRaw() {
 std::vector<std::string> Input::applyWildcards(const std::string &wildcard) {
     auto path = from_wildcard(wildcard, true);
     auto card = from_wildcard(wildcard, false);
-
+    
     if(currentPath[currentPath.length() != '/'])
         currentPath += '/';
 

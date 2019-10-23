@@ -18,7 +18,6 @@ merrno my_errno;
 int main(int argc, char **argv) {
     std::cout << "Welcome! You can exit by pressing Ctrl+C at any time...\n" << std::endl;
     auto variablesManager = VariablesManager();
-    Input inp{variablesManager};
 
     std::stringstream mstringstream;
     mstringstream << "/bin/:/bin/local/:" << get_current_directory();
@@ -31,6 +30,7 @@ int main(int argc, char **argv) {
     std::regex extCommand(R"(^(.\/|..\/|\/).+)");
 
     while (true) {
+        Input inp{variablesManager};
 
         auto res = inp.preprocessCommand();
 
