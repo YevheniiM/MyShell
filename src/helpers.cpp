@@ -7,13 +7,13 @@
 #include "helpers.h"
 
 
-std::vector<std::string> list_current_dir(const std::string &path) {
+std::vector<std::string> list_current_dir(const std::string &path, const std::string &wild_path) {
     DIR *dir;
     struct dirent *ent;
     std::vector<std::string> files{};
-    if ((dir = opendir(path.c_str())) != nullptr) {
+    if ((dir = opendir((path + wild_path).c_str())) != nullptr) {
         while ((ent = readdir(dir)) != nullptr) {
-            files.emplace_back(path + ent->d_name);
+            files.emplace_back(wild_path + ent->d_name);
         }
         closedir(dir);
     } else {

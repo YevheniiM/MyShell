@@ -8,6 +8,6 @@
 #include <string>
 #include <vector>
 
-std::vector<std::string> list_current_dir(const std::string &path);
+std::vector<std::string> list_current_dir(const std::string &path, const std::string &wild_path);
 
 #endif //MYSHELL_HELPERS_H

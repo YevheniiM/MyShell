@@ -3,6 +3,7 @@
 
 #include <regex>
 #include <unistd.h>
+#include <iostream>
 
 #include "Input.h"
 #include "helpers.h"
@@ -20,7 +21,7 @@ Input::Input(VariablesManager &vm) : varManager(vm) {
 }
 
 std::vector<std::string> Input::preprocessCommand() {
-    auto resCommand = this->getCommand();
+    auto resCommand = getCommand();
     std::regex varSubstitution{R"((\$[a-zA-Z]+))"};
     std::vector<std::string> res;
 
@@ -39,11 +40,16 @@ std::vector<std::string> Input::preprocessCommand() {
         } else {
             newEntry = elem;
         }
-        if (is_wildcard(elem) == 0) {
-            auto wildcardedInput = applyWildcards(elem);
-            res.insert(res.end(), wildcardedInput.begin(), wildcardedInput.end());
-        } else {
-            res.push_back(newEntry);
+
+        try {
+            if (is_wildcard(elem) == 0) {
+                auto wildcardedInput = applyWildcards(elem);
+                res.insert(res.end(), wildcardedInput.begin(), wildcardedInput.end());
+            } else {
+                res.push_back(newEntry);
+            }
+        } catch (std::invalid_argument& ex){
+            std::cout << ex.what() << std::endl;
         }
     }
 
@@ -124,5 +130,8 @@ std::vector<std::string> Input::applyWildcards(const std::string &wildcard) {
     auto path = from_wildcard(wildcard, true);
     auto card = from_wildcard(wildcard, false);
 
-    return get_matches(list_current_dir(currentPath + path), card);
+    if(currentPath[currentPath.length() != '/'])
+        currentPath += '/';
+
+    return get_matches(list_current_dir(currentPath, path), card);
 }

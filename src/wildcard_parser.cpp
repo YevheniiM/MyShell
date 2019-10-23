@@ -66,12 +66,14 @@ std::string from_wildcard(const std::string &wildcard, bool path) {
     std::string res;
     if (path) {
         res = wildcard.substr(0, ind + 1);
-        if (res[0] != '/')
+        if (res[0] != '/' && res[0] != '.')
             res = res.insert(0, "/");
         if (res[res.length() - 1] != '/')
             res += '/';
     } else {
         res = wildcard.substr(ind);
+        if (res[0] == '/')
+            res = res.substr(1);
     }
 
     return res;

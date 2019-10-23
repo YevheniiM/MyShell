@@ -37,7 +37,6 @@ int main(int argc, char **argv) {
         if (res.empty()) continue;
 
         if (res.size() == 1 && std::regex_match(res[0], varDeclaration)) {
-            std::cout << 1 << std::endl;
             auto delimiterPos = res[0].find('=');
             variablesManager.setLocalVariable(res[0].substr(0, delimiterPos), res[0].substr((delimiterPos + 1)));
         } else {
