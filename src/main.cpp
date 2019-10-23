@@ -30,25 +30,31 @@ int main(int argc, char **argv) {
     std::regex extCommand(R"(^(.\/|..\/|\/).+)");
 
     while (true) {
-        Input inp{variablesManager};
+        try {
+            Input inp{variablesManager};
 
-        auto res = inp.preprocessCommand();
+            auto res = inp.preprocessCommand();
 
-        if (res.empty()) continue;
+            if (res.empty()) continue;
 
-        if (res.size() == 1 && std::regex_match(res[0], varDeclaration)) {
-            auto delimiterPos = res[0].find('=');
-            variablesManager.setLocalVariable(res[0].substr(0, delimiterPos), res[0].substr((delimiterPos + 1)));
-        } else {
-            if (std::find(my_optins.begin(), my_optins.end(), res[0]) != my_optins.end()) {
-                run_my_options(res, variablesManager);
+            if (res.size() == 1 && std::regex_match(res[0], varDeclaration)) {
+                auto delimiterPos = res[0].find('=');
+                variablesManager.setLocalVariable(res[0].substr(0, delimiterPos), res[0].substr((delimiterPos + 1)));
             } else {
-                run_my_programs(res, variablesManager);
+                if (std::find(my_optins.begin(), my_optins.end(), res[0]) != my_optins.end()) {
+                    run_my_options(res, variablesManager);
+                } else {
+                    run_my_programs(res, variablesManager);
+                }
             }
-        }
 
-        if (my_errno.get_code() != 0) {
-            my_errno.get_description();
+            if (my_errno.get_code() != 0) {
+                my_errno.get_description();
+            }
+        } catch (std::runtime_error &error) {
+            std::cerr << error.what() << std::endl;
+        } catch (...) {
+            std::cerr << "Unknown error." << std::endl;
         }
     }
     return 0;
